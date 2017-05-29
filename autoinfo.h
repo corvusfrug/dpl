@@ -45,6 +45,9 @@ public slots:
     bool GetBam();
     void SetBam(bool arg);
 
+    TormozType GetTormozType();
+    void SetTormozType(TormozType arg);
+
 private:
     btVector3 pos;
     btVector3 rot;
@@ -56,6 +59,7 @@ private:
     btTransform transform;
     double time;
     bool bam;
+    TormozType tormozT;
 
 };
 

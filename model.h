@@ -27,9 +27,11 @@ public:
                        btDispatcherInfo& dispatcherInfo);*/
     inline bool GetBam(){return bam;}
     inline void SetBam(bool arg){bam=arg;}
+    //void
 
 public slots:
     void initModel(ModelInfo* info);
+    //void setWindowName(Qstring arg);
 signals:
     void SendAutoInfo(std::vector<std::vector<AutoInfo*>>);
 private:

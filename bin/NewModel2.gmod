@@ -1,0 +1,57 @@
+<!DOCTYPE Model>
+<ModelInfo>
+ <countAuto>3</countAuto>
+ <gravity>-19.81</gravity>
+ <friction>4</friction>
+ <frequency>4</frequency>
+ <CameraInfo>
+  <pos>
+   <X>1</X>
+   <Y>2</Y>
+   <Z>3.04</Z>
+  </pos>
+  <target>
+   <X>5</X>
+   <Y>6</Y>
+   <Z>7.89</Z>
+  </target>
+ </CameraInfo>
+ <AutoInfos>
+  <AutoInfo name="Автомобиль 1">
+   <mass>111</mass>
+   <massEngine>10</massEngine>
+   <azimut>49</azimut>
+   <velosity>1.23</velosity>
+   <tormozT>NOW</tormozT>
+   <pos>
+    <X>1</X>
+    <Y>0.2</Y>
+    <Z>0.03</Z>
+   </pos>
+  </AutoInfo>
+  <AutoInfo name="Автомобиль 2">
+   <mass>222</mass>
+   <massEngine>10</massEngine>
+   <azimut>-53</azimut>
+   <velosity>0</velosity>
+   <tormozT>SEC</tormozT>
+   <pos>
+    <X>2.3</X>
+    <Y>4.05</Y>
+    <Z>6.07</Z>
+   </pos>
+  </AutoInfo>
+  <AutoInfo name="Автомобиль 3">
+   <mass>333</mass>
+   <massEngine>10</massEngine>
+   <azimut>129</azimut>
+   <velosity>2.03</velosity>
+   <tormozT>COLLIDE</tormozT>
+   <pos>
+    <X>1.02</X>
+    <Y>3.45</Y>
+    <Z>6.78</Z>
+   </pos>
+  </AutoInfo>
+ </AutoInfos>
+</ModelInfo>

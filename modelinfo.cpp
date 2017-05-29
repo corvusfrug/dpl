@@ -8,7 +8,7 @@ ModelInfo::ModelInfo()
     currentAutoInfoNum = 0;
     gravity = -9.81;
     vGravity = btVector3(0,0,gravity);
-    friction = 0.5;
+    friction = 1.0;
     frequency = 1.0;
     cam = new CameraInfo();
 }

@@ -5,6 +5,14 @@
 #include "MultiObject.h"
 #include "ResourceManager.h"
 
+enum TormozType
+{
+    NOW=0,
+    SEC,
+    COLLIDE,
+    NEWER
+};
+
 struct Suspension
 {
     MultiObject* base;
@@ -25,6 +33,8 @@ class SimpleCar : public MultiObject
         double GetCarMass();
         btRigidBody* GetCarKorpusRB();
         void Tormoz();
+        TormozType GetTormozType();
+	void SetTormozType(TormozType arg);
 
     protected:
 
@@ -35,6 +45,8 @@ class SimpleCar : public MultiObject
         Suspension Susp_TL;
         Suspension Susp_BR;
         Suspension Susp_BL;
+        bool istormoz;
+        TormozType tormozT;
 };
 
 #endif // SIMPLECAR_H

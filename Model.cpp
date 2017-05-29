@@ -31,6 +31,7 @@ void Model::initModel(ModelInfo* info)
     infomodel = info;
     RunModel();
 }
+
 Model::Model()
 {
     //qDebug() << "MODEL CONSTRUCT IN\n";
@@ -211,6 +212,17 @@ int Model::RunModel()
         viewer.setUpViewInWindow( 150, 150, 1024, 768 );
         viewer.setSceneData( root );
 
+        // имя окна
+        osg::ref_ptr<osg::GraphicsContext::Traits> grcontTratis;
+        grcontTratis = new osg::GraphicsContext::Traits( *viewer.getCamera()->getGraphicsContext()->getTraits());
+        grcontTratis->windowName = "MODELING";
+
+        osg::ref_ptr<osg::GraphicsContext> gc = osg::GraphicsContext::createGraphicsContext( grcontTratis.get() );
+        /*osgViewer::Viewer::Windows wnd;
+        viewer.getWindows(&wnd);
+        wnd.*/
+
+
         //viewer
 
         /// CAMERA!!!!!
@@ -225,6 +237,8 @@ int Model::RunModel()
                       caminfo->GetTargZ()),
             osg::Vec3( 0, 0, 1 ) );
         Cam->setProjectionMatrixAsPerspective( 40., 1., 1., 50. );
+
+        Cam->setGraphicsContext(gc); // имя окна задаем контекст
     //
         //viewer.setCameraManipulator(new osgGA::TrackballManipulator());
         //viewer.getCameraManipulator()->setHomePosition(osg::Vec3( 0, -5, 1),
@@ -265,6 +279,9 @@ int Model::RunModel()
                 cars[i]->SetCarMass(infocars[i]->GetMass());
                 cars[i]->SetMassEngine(infocars[i]->GetMassEngine());
                 cars[i]->SetLVelosity(infocars[i]->GetLVelosity());
+		cars[i]->SetTormozType(infocars[i]->GetTormozType());
+		if(cars[i]->GetTormozType()==TormozType::NOW)
+			cars[i]->Tormoz();
 
 
 
@@ -313,12 +330,15 @@ int Model::RunModel()
                 allCarsStop= true;
                 for(unsigned int i=0;i<cars.size();++i)
                 {
+
                     if(cars[i]->GetRigitBody()->getLinearVelocity().length() > btVector3(0.01, 0.01, 0.01).length() ||
                        cars[i]->GetRigitBody()->getAngularVelocity().length() > btVector3(0.01, 0.01, 0.01).length())
                        {
                             allCarsStop = false;
-                            break;
+                            //break;
                        }
+		    if(cars[i]->GetTormozType()==TormozType::SEC && currSimTime>10)
+                        cars[i]->Tormoz();
                         //stopTime = currSimTime;
                 }
                 stopTime = currSimTime;
@@ -450,13 +470,17 @@ bool MyDispatcher::needsResponse(const btCollisionObject* body0,
     car1 = model->FindCarByRB(b0);
     car2 = model->FindCarByRB(b1);
     if(car1!=NULL && car2 != NULL)
-        if(!flag)
         {
-            flag = true;
-            std::cout << "BAM!!!\n";
+            if(!flag)
+            {
+                flag = true;
+                std::cout << "BAM!!!\n";
+            };
             model->SetBam(true);
-            car1->Tormoz();
-            car2->Tormoz();
+            if(car1->GetTormozType()==TormozType::COLLIDE)
+                car1->Tormoz();
+            if(car2->GetTormozType()==TormozType::COLLIDE)
+                car2->Tormoz();
         }
 
     return btCollisionDispatcher::needsResponse(body0, body1);

@@ -3,7 +3,8 @@
 SimpleCar::SimpleCar(btDynamicsWorld* bw, osg::Group* rt )
  :MultiObject(bw,rt)
 {
-    //ctor
+    istormoz = false;
+    tormozT=TormozType::COLLIDE;
 }
 
 SimpleCar::~SimpleCar()
@@ -528,6 +529,8 @@ void SimpleCar::InitCar(ResourceManager* RM)
         //Korpus->GetRigitBody()->
 
     }
+    if(tormozT==TormozType::NOW)
+        Tormoz();
 
     SetPos(OldPos);
 }
@@ -563,10 +566,12 @@ btRigidBody* SimpleCar::GetCarKorpusRB()
 }
 void SimpleCar::Tormoz()
 {
+    if(istormoz) return;
     Susp_TL.JoinWhel->setLimit(Susp_TL.JoinWhel->getHingeAngle(),Susp_TL.JoinWhel->getHingeAngle());
     Susp_TR.JoinWhel->setLimit(Susp_TR.JoinWhel->getHingeAngle(),Susp_TR.JoinWhel->getHingeAngle());
     Susp_BL.JoinWhel->setLimit(Susp_BL.JoinWhel->getHingeAngle(),Susp_BL.JoinWhel->getHingeAngle());
     Susp_BR.JoinWhel->setLimit(Susp_BR.JoinWhel->getHingeAngle(),Susp_BR.JoinWhel->getHingeAngle());
+    istormoz = true;
 }
 double SimpleCar::GetMassEngine()
 {
@@ -575,4 +580,12 @@ double SimpleCar::GetMassEngine()
 double SimpleCar::GetCarMass()
 {
     return this->GetMass()*10.0;
+}
+TormozType SimpleCar::GetTormozType()
+{
+    return tormozT;
+}
+void SimpleCar::SetTormozType(TormozType arg)
+{
+	tormozT=arg;
 }

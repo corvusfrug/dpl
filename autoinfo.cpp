@@ -13,6 +13,7 @@ AutoInfo::AutoInfo()
     velosity = 0;
     time = 0;
     bam = false;
+    tormozT=TormozType::COLLIDE;
 }
 AutoInfo::AutoInfo(SimpleCar* arg, double curTime, bool bam)
 {
@@ -25,6 +26,7 @@ AutoInfo::AutoInfo(SimpleCar* arg, double curTime, bool bam)
     velosity = lVelosity.length();
     time = curTime;
     this->bam=bam;
+    this->tormozT = arg->GetTormozType();
 }
 
 void AutoInfo::SetPos(double x, double y, double z)
@@ -95,6 +97,13 @@ bool AutoInfo::GetBam(){return bam;}
 void AutoInfo::SetBam(bool arg)
 {
     bam = arg;
+}
+
+TormozType AutoInfo::GetTormozType(){return tormozT;}
+
+void AutoInfo::SetTormozType(TormozType arg)
+{
+    tormozT=arg;
 }
 
 void AutoInfo::SetTransform(btTransform arg) {transform=arg;}

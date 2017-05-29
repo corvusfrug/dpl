@@ -79,6 +79,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect(ui->SB_Speed, SIGNAL(valueChanged(double)), tmp, SLOT(SetLVelosity(double)));
 
+    // Блокировка колес
+    QObject::connect(ui->RB_block_1s, SIGNAL(clicked()), this, SLOT(TormozChecked()));
+    QObject::connect(ui->RB_block_now, SIGNAL(clicked()), this, SLOT(TormozChecked()));
+    QObject::connect(ui->RB_block_collide, SIGNAL(clicked()), this, SLOT(TormozChecked()));
+    QObject::connect(ui->RB_block_never, SIGNAL(clicked()), this, SLOT(TormozChecked()));
+
+    //  Сохранение и загрузка модели
+    QObject::connect(ui->BTN_Save_model, SIGNAL(clicked()), this, SLOT(SaveModel()));
+    QObject::connect(ui->BTN_Open_model, SIGNAL(clicked()), this, SLOT(OpenModel()));
 
 }
 
@@ -133,6 +142,18 @@ void MainWindow::CurrentAutoREDACT(AutoInfo* lastai)
     ui->SP_Pos_Z->setValue(tmp->GetPosZ());
     ui->SP_Azimut->setValue(tmp->GetRotZ());
     //ui->dial_Azimut->setValue(tmp->GetRotZ());
+
+    if(tmp->GetTormozType()==TormozType::NOW)
+        ui->RB_block_now->setChecked(true);
+
+    if(tmp->GetTormozType()==TormozType::SEC)
+        ui->RB_block_1s->setChecked(true);
+
+    if(tmp->GetTormozType()==TormozType::COLLIDE)
+        ui->RB_block_collide->setChecked(true);
+
+    if(tmp->GetTormozType()==TormozType::NEWER)
+        ui->RB_block_never->setChecked(true);
 }
 
 void MainWindow::CountAutoREDACT(int count)
@@ -145,6 +166,21 @@ void MainWindow::CountAutoREDACT(int count)
     };
     //ui->ListAuto->fi
     ui->ListAuto->setCurrentRow(modInfo.GetCurrentAutoNum());
+}
+
+void MainWindow::TormozChecked()
+{
+    if(ui->RB_block_now->isChecked())
+        modInfo.GetCurrentAuto()->SetTormozType(TormozType::NOW);
+
+    if(ui->RB_block_1s->isChecked())
+        modInfo.GetCurrentAuto()->SetTormozType(TormozType::SEC);
+
+    if(ui->RB_block_collide->isChecked())
+        modInfo.GetCurrentAuto()->SetTormozType(TormozType::COLLIDE);
+
+    if(ui->RB_block_never->isChecked())
+        modInfo.GetCurrentAuto()->SetTormozType(TormozType::NEWER);
 }
 
 void MainWindow::SendRunModel()
@@ -275,6 +311,29 @@ void MainWindow::PrintResult(std::vector<std::vector<AutoInfo *> > Log)
             lab->setText(QString().setNum(modInfo.GetFrequencyTime()*nomCrash));
 
         lab = new QLabel(tab);
+        lab->setText(QString("Блокировка колес"));
+        lab->setGeometry(QRect(340,100,201,16));
+
+        lab = new QLabel(tab);
+        //lab->setText(QString("Блокировка колес:"));
+        lab->setGeometry(QRect(470,100,201,16));
+        switch(Log[i][0]->GetTormozType())
+        {
+        case TormozType::NEWER:
+            lab->setText(QString("Никогда"));
+            break;
+        case TormozType::SEC:
+            lab->setText(QString("Через 5 секунд"));
+            break;
+        case TormozType::NOW:
+            lab->setText(QString("Сразу"));
+            break;
+        case TormozType::COLLIDE:
+            lab->setText(QString("После столкновения"));
+            break;
+        };
+
+        lab = new QLabel(tab);
         lab->setText(QString("Весь лог"));
         lab->setGeometry(QRect(10,120,201,16));
 
@@ -298,5 +357,367 @@ void MainWindow::PrintResult(std::vector<std::vector<AutoInfo *> > Log)
             text += QString("####################################\n");
         }
         browser->setText(text);
+    }
+}
+
+void MainWindow::SaveModel()
+{
+
+    //QFileDialog* opdlg = new QFileDialog();
+    QString str = QFileDialog::getSaveFileName(this, "Сохранить модель...", "NewModel", "*.gmod ; *.Gmod ; *.GMOD");
+    //qDebug() << str << "\n";
+
+    // создание хмл
+    QDomDocument doc("Model");
+    QDomElement element = doc.createElement("ModelInfo");
+    doc.appendChild(element);
+
+    QDomElement countAuto = doc.createElement("countAuto");
+    QDomText countAutoVal = doc.createTextNode(QString().setNum(modInfo.GetCount()));
+    countAuto.appendChild(countAutoVal);
+    element.appendChild(countAuto);
+
+    QDomElement gravity = doc.createElement("gravity");
+    QDomText gravityVal = doc.createTextNode(QString().setNum(modInfo.GetGravity()));
+    gravity.appendChild(gravityVal);
+    element.appendChild(gravity);
+
+    QDomElement friction = doc.createElement("friction");
+    QDomText frictionVal = doc.createTextNode(QString().setNum(modInfo.GetFriction()));
+    friction.appendChild(frictionVal);
+    element.appendChild(friction);
+
+    QDomElement frequency = doc.createElement("frequency");
+    QDomText frequencyVal = doc.createTextNode(QString().setNum(modInfo.GetFrequency()));
+    frequency.appendChild(frequencyVal);
+    element.appendChild(frequency);
+
+    // Запишем камеру
+    CameraInfo* cam = modInfo.GetCamInfo();
+    QDomElement Camera = doc.createElement("CameraInfo");
+
+    QDomElement CamPos = doc.createElement("pos");
+
+    QDomElement posCamX = doc.createElement("X");
+    QDomText posCamXVal = doc.createTextNode(QString().setNum(cam->GetPosX()));
+    posCamX.appendChild(posCamXVal);
+    CamPos.appendChild(posCamX);
+
+    QDomElement posCamY = doc.createElement("Y");
+    QDomText posCamYVal = doc.createTextNode(QString().setNum(cam->GetPosY()));
+    posCamY.appendChild(posCamYVal);
+    CamPos.appendChild(posCamY);
+
+    QDomElement posCamZ = doc.createElement("Z");
+    QDomText posCamZVal = doc.createTextNode(QString().setNum(cam->GetPosZ()));
+    posCamZ.appendChild(posCamZVal);
+    CamPos.appendChild(posCamZ);
+
+    Camera.appendChild(CamPos);
+
+    QDomElement CamTarg = doc.createElement("target");
+
+    QDomElement posCamTargX = doc.createElement("X");
+    QDomText posCamTargXVal = doc.createTextNode(QString().setNum(cam->GetTargX()));
+    posCamTargX.appendChild(posCamTargXVal);
+    CamTarg.appendChild(posCamTargX);
+
+    QDomElement posCamTargY = doc.createElement("Y");
+    QDomText posCamTargYVal = doc.createTextNode(QString().setNum(cam->GetTargY()));
+    posCamTargY.appendChild(posCamTargYVal);
+    CamTarg.appendChild(posCamTargY);
+
+    QDomElement posCamTargZ = doc.createElement("Z");
+    QDomText posCamTargZVal = doc.createTextNode(QString().setNum(cam->GetTargZ()));
+    posCamTargZ.appendChild(posCamTargZVal);
+    CamTarg.appendChild(posCamTargZ);
+
+    Camera.appendChild(CamTarg);
+
+    element.appendChild(Camera);
+
+
+    // Запишем все автомобили
+    QDomElement Autos = doc.createElement("AutoInfos");
+
+    std::vector<AutoInfo*> autos = modInfo.GetAllAutoInfo();
+    for(int i = 0; i < autos.size(); ++i)
+    {
+        QDomElement Auto = doc.createElement("AutoInfo");
+        QDomAttr atr = doc.createAttribute("name");
+        atr.setValue(QString("Автомобиль ")+QString().setNum(i+1));
+        Auto.setAttributeNode(atr);
+
+        QDomElement mass = doc.createElement("mass");
+        QDomText massVal = doc.createTextNode(QString().setNum(autos[i]->GetMass()));
+        mass.appendChild(massVal);
+        Auto.appendChild(mass);
+
+        QDomElement massEngine = doc.createElement("massEngine");
+        QDomText massEngineVal = doc.createTextNode(QString().setNum(autos[i]->GetMassEngine()));
+        massEngine.appendChild(massEngineVal);
+        Auto.appendChild(massEngine);
+
+        QDomElement azimut = doc.createElement("azimut");
+        QDomText azimutVal = doc.createTextNode(QString().setNum(autos[i]->GetRotZ()));
+        azimut.appendChild(azimutVal);
+        Auto.appendChild(azimut);
+
+        QDomElement velosity = doc.createElement("velosity");
+        QDomText velosityVal = doc.createTextNode(QString().setNum(autos[i]->GetLVelosityForward()));
+        velosity.appendChild(velosityVal);
+        Auto.appendChild(velosity);
+
+        QDomElement tormozT = doc.createElement("tormozT");
+
+        QDomText tormozTVal;
+        switch(autos[i]->GetTormozType())
+        {
+            case TormozType::NEWER:
+            tormozTVal = doc.createTextNode(QString("NEWER"));
+            break;
+            case TormozType::SEC:
+            tormozTVal = doc.createTextNode(QString("SEC"));
+            break;
+            case TormozType::NOW:
+            tormozTVal = doc.createTextNode(QString("NOW"));
+            break;
+            case TormozType::COLLIDE:
+            tormozTVal = doc.createTextNode(QString("COLLIDE"));
+            break;
+        }
+        tormozT.appendChild(tormozTVal);
+        Auto.appendChild(tormozT);
+
+        QDomElement pos = doc.createElement("pos");
+
+        QDomElement posX = doc.createElement("X");
+        QDomText posXVal = doc.createTextNode(QString().setNum(autos[i]->GetPosX()));
+        posX.appendChild(posXVal);
+        pos.appendChild(posX);
+
+        QDomElement posY = doc.createElement("Y");
+        QDomText posYVal = doc.createTextNode(QString().setNum(autos[i]->GetPosY()));
+        posY.appendChild(posYVal);
+        pos.appendChild(posY);
+
+        QDomElement posZ = doc.createElement("Z");
+        QDomText posZVal = doc.createTextNode(QString().setNum(autos[i]->GetPosZ()));
+        posZ.appendChild(posZVal);
+        pos.appendChild(posZ);
+
+        Auto.appendChild(pos);
+
+        Autos.appendChild(Auto);
+    }
+    element.appendChild(Autos);
+
+    //Запись
+    if(!(str.toLower()).endsWith(".gmod"))
+        str.append(".gmod");
+    QFile file(str);
+    if(file.open(QIODevice::WriteOnly))
+    {
+        QTextStream(&file) << doc.toString();
+        file.close();
+    };
+    QMessageBox::information(0, "Сохранение модели","Модель\n" + str + "\nСохранена!");
+    QStringList strl = str.split('/');
+    this->setWindowTitle(strl.back());
+
+}
+
+void MainWindow::OpenModel()
+{
+    QString str = QFileDialog::getOpenFileName(this, "Открыть модель...", "", "*.gmod *.Gmod *.GMOD *.gMOD *.GMod");
+    QDomDocument doc;
+    //ModelInfo modinf;
+    QFile file(str);
+    if(file.open(QIODevice::ReadOnly))
+    {
+        if(doc.setContent(&file))
+        {
+            QDomElement element = doc.documentElement();
+            traverseNode(element, TypeXMLNode::NONE_type, -1);
+        }
+        file.close();
+    }
+    CurrentAutoREDACT(modInfo.GetCurrentAuto());
+    QMessageBox::information(0, "Открытие модели","Модель\n" + str + "\nЗагружена!");
+    QStringList strl = str.split('/');
+    this->setWindowTitle(strl.back());
+}
+
+
+void MainWindow::traverseNode(const QDomNode& node, TypeXMLNode type, int countAuto)
+{
+    static int currentAutoInd=-1;
+    if(countAuto==-1) currentAutoInd = countAuto;
+    static TypeXMLNode currType=type;
+    QDomNode domNode = node.firstChild();
+    while(!domNode.isNull())
+    {
+        if(domNode.isElement())
+        {
+            QDomElement element = domNode.toElement();
+            if(!element.isNull())
+            {
+                if(element.tagName() == "countAuto")
+                {
+                    int tmp = element.text().toInt();
+                    if(tmp>0)
+                    {
+                        modInfo.SetCount(tmp);
+                        ui->SB_NumAutos->setValue(modInfo.GetCount());
+                    }
+                }
+                if(element.tagName() == "gravity")
+                {
+                    double tmp = element.text().toDouble();
+                    //if(tmp > 0)
+                    {
+                        modInfo.SetGravity(tmp);
+                        ui->SB_Gravity->setValue(modInfo.GetGravity());
+                    }
+                }
+                if(element.tagName() == "friction")
+                {
+                    double tmp = element.text().toDouble();
+                    if(tmp>0)
+                    {
+                        modInfo.SetFriction(tmp);
+                        ui->SB_Friction->setValue(modInfo.GetFriction());
+                    }
+                }
+                if(element.tagName() == "frequency")
+                {
+                    double tmp = element.text().toDouble();
+                    if(tmp>0 && tmp < 10)
+                    {
+                        modInfo.SetFrequency(tmp);
+                        ui->SB_Frequency->setValue(modInfo.GetFrequency());
+                    }
+                }
+                if(element.tagName() == "CameraInfo")
+                {
+                    currType=TypeXMLNode::CAMERA;//traverseNode(domNode,TypeXMLNode::CAMERA);
+                }
+                if(element.tagName() == "AutoInfo")
+                {
+                    currentAutoInd++;
+                    currType=TypeXMLNode::AUTO;//traverseNode(domNode,TypeXMLNode::AUTO);
+                }
+                if(element.tagName() == "target")
+                {
+                    currType=TypeXMLNode::TARGET;//traverseNode(domNode,TypeXMLNode::TARGET);
+                }
+                if(element.tagName() == "X")
+                {
+                    if(type==TypeXMLNode::CAMERA)
+                    {
+                        modInfo.GetCamInfo()->SetPosX(element.text().toDouble());
+                        ui->SP_Pos_Cam_X->setValue(modInfo.GetCamInfo()->GetPosX());
+                    }
+                    if(type==TypeXMLNode::TARGET)
+                    {
+                        modInfo.GetCamInfo()->SetTargX(element.text().toDouble());
+                        ui->SP_Pos_Cam_Target_X->setValue(modInfo.GetCamInfo()->GetTargX());
+                    }
+                    if(type==TypeXMLNode::AUTO)
+                    {
+                        (modInfo.GetAllAutoInfo())[currentAutoInd]->SetPosX(element.text().toDouble());
+                        //CurrentAutoREDACT(modInfo.GetCurrentAuto());
+                    }
+                }
+                if(element.tagName() == "Y")
+                {
+                    if(type==TypeXMLNode::CAMERA)
+                    {
+                        modInfo.GetCamInfo()->SetPosY(element.text().toDouble());
+                        ui->SP_Pos_Cam_Y->setValue(modInfo.GetCamInfo()->GetPosY());
+                    }
+                    if(type==TypeXMLNode::TARGET)
+                    {
+                        modInfo.GetCamInfo()->SetTargY(element.text().toDouble());
+                        ui->SP_Pos_Cam_Target_Y->setValue(modInfo.GetCamInfo()->GetTargY());
+                    }
+                    if(type==TypeXMLNode::AUTO)
+                    {
+                        (modInfo.GetAllAutoInfo())[currentAutoInd]->SetPosY(element.text().toDouble());
+                        //CurrentAutoREDACT(modInfo.GetCurrentAuto());
+                    }
+                }
+                if(element.tagName() == "Z")
+                {
+                    if(type==TypeXMLNode::CAMERA)
+                    {
+                        modInfo.GetCamInfo()->SetPosZ(element.text().toDouble());
+                        ui->SP_Pos_Cam_Z->setValue(modInfo.GetCamInfo()->GetPosZ());
+                    }
+                    if(type==TypeXMLNode::TARGET)
+                    {
+                        modInfo.GetCamInfo()->SetTargZ(element.text().toDouble());
+                        ui->SP_Pos_Cam_Target_Z->setValue(modInfo.GetCamInfo()->GetTargZ());
+                    }
+                    if(type==TypeXMLNode::AUTO)
+                    {
+                        (modInfo.GetAllAutoInfo())[currentAutoInd]->SetPosZ(element.text().toDouble());
+                        //CurrentAutoREDACT(modInfo.GetCurrentAuto());
+                    }
+                }
+                if(element.tagName() == "mass")
+                {
+                    double tmp = element.text().toInt();
+                    if(tmp>0)
+                    {
+                        (modInfo.GetAllAutoInfo())[currentAutoInd]->SetMass(tmp);
+                        //ui->SB_Frequency->setValue(modInfo.GetFrequency());
+                    }
+                }
+                if(element.tagName() == "massEngine")
+                {
+                    double tmp = element.text().toInt();
+                    if(tmp>0)
+                    {
+                        (modInfo.GetAllAutoInfo())[currentAutoInd]->SetMassEngine(tmp);
+                        //ui->SB_Frequency->setValue(modInfo.GetFrequency());
+                    }
+                }
+                if(element.tagName() == "velosity")
+                {
+                    double tmp = element.text().toDouble();
+                    //if(tmp>0)
+                    {
+                        (modInfo.GetAllAutoInfo())[currentAutoInd]->SetLVelosity(tmp);
+                        //ui->SB_Frequency->setValue(modInfo.GetFrequency());
+                    }
+                }
+                if(element.tagName() == "azimut")
+                {
+                    double tmp = element.text().toInt();
+                    if(tmp>=-179 && tmp<=180)
+                    {
+                        (modInfo.GetAllAutoInfo())[currentAutoInd]->SetRot(tmp);
+                        //ui->SB_Frequency->setValue(modInfo.GetFrequency());
+                    }
+                }
+                if(element.tagName() == "tormozT")
+                {
+                    QString tmp = element.text();
+                    TormozType tmp2=TormozType::COLLIDE;
+                    if(tmp=="NEWER") tmp2 = TormozType::NEWER;
+                    if(tmp=="NOW") tmp2 = TormozType::NOW;
+                    if(tmp=="SEC") tmp2 = TormozType::SEC;
+                    //if(tmp>=-179 && tmp<=180)
+                    {
+                        (modInfo.GetAllAutoInfo())[currentAutoInd]->SetTormozType(tmp2);
+                        //ui->SB_Frequency->setValue(modInfo.GetFrequency());
+                    }
+                }
+            }
+        }
+        traverseNode(domNode, currType);
+        currType=type;
+        domNode=domNode.nextSibling();
     }
 }
