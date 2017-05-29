@@ -30,7 +30,7 @@
   + Задавать параметр момента блокирования колес.
 ********
 ### ***Технические данные***
-Разработка велась на ОС Lubuntu 16.04.2 32-bit. 
+Разработка велась на ОС [Lubuntu](http://lubuntu.me) 16.04.2 32-bit. 
 Использовались библиотеки:
 * [QT](https://www.qt.io/ru/)
 * [Bullet Physics Library](http://bulletphysics.org/wordpress/)
