@@ -12,7 +12,7 @@
 Основной целью программы(***Модели***), является определение конечного положения автомобилей, после их столкновения
 *********
 ![GUI_Modeling_ex](https://1.downloader.disk.yandex.ru/preview/1045ae80d56a9f9bd9cf463c736f5bc3bcb28205622cc25a0a15ed0234e66876/inf/e4yAmOpUdHfB_SQ08sGywc2CX730zv9CQXkRoEITuVEArzK1wcC9_jHBXemtSpedCCtJY9au3z_E3VcYBkHDEw%3D%3D?uid=0&filename=2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1165x786)
-<img src="https://s61h.storage.yandex.net/rdisk/39e85ddf71973e84e8fc2d9d4df45629fd44c10f334d8b6213c79f49add6f548/59a2fb16/e4yAmOpUdHfB_SQ08sGywXw9MGz52L5W1fUTXNk7tL4uXwXCCpovvzP4aqdVfawyG8NLoD_M6O_ble7u0IqAiA==?uid=227757636&filename=testCrash.gif&disposition=inline&hash=&limit=0&content_type=image%2Fgif&fsize=4200013&hid=d3f9038fcd59546809e8438118c3959b&media_type=image&tknv=v2&etag=434588a9932383579abd10c258d34f8d&rtoken=UZXkIkIhUE7D&force_default=yes&ycrid=na-40a6768e1409e90840ac18ebb836a804-downloader10h&ts=557bf23c47180&s=e5d3ecb08da3c62dc7a6dc5abae0bfbe0b16c9517e302624bb715a1980874af3&pb=U2FsdGVkX1-HtRE2_JWLnF2SAeGCQyV_d7dxulKY5PtB5JYD1bZbOqF6nUNpxNe595ae5MaOlLe8SPpyBeOGJejuBLeiXujzMeQqhL3f4SM=" width="1165" height="400" align="center"/>
+<img src="http://gifok.net/images/2017/08/27/testCrash.gif" width="1165" height="400" align="center"/>
 
 *********
 Программа позволяет:
