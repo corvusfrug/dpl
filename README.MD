@@ -1,7 +1,7 @@
 # **Моделирование ДТП**
 ************
 ![Modeling_ex](https://3.downloader.disk.yandex.ru/preview/53c7124a9d241a7517f7ffc717f8affc623f2913e0455b09a8c40a373baaa67a/inf/e4yAmOpUdHfB_SQ08sGywY6RWpBdZTZ538chB57HiojmzNZ1ROP0K3sr0xEAeVKnbrwmFRqKUy-2uwGVyXgDlQ%3D%3D?uid=0&filename=1.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1165x786)
-<img src="http://gifok.net/images/2017/08/27/311e40.gif" width="510" height="394"/>
+<img src="https://s57e.storage.yandex.net/rdisk/048a824c48b39583c4369da7c382ac77b2af3f2bd5ccb8be0264061be28c06c5/59a33c61/e4yAmOpUdHfB_SQ08sGywfY4bBIBtpJIL-4NOvkN7ThG3g5CevMQqhmV6GOWzH4qoaoxdTOMDl2nUWlj9J_DXw==?uid=227757636&filename=3.gif&disposition=inline&hash=&limit=0&content_type=image%2Fgif&fsize=3305161&hid=5c988b672102110b8b9fd5c9f9185837&media_type=image&tknv=v2&etag=55552f167e163ea9a0d5ccd8da1b9650&rtoken=MNXUS8GgRcy0&force_default=yes&ycrid=na-cf6b5f2fff52028a2a2f5a933b909bae-downloader15e&ts=557c3080f1a40&s=b90aa393ec76f58cf0024c2a473be297a3b477845736e21b052009e930ffc81a&pb=U2FsdGVkX19gCo-gpCYBbkA0If_vNdEtCFDfUxesxPNvwUMb2MkQIgoCbqmo34xwgJmbovxwG3gdz_Q1_R3D-APPxV4xFQQNKQ8ZhTOI058=" width="510" height="394"/>
 *************
 Данная программа предназначена для моделирования ДТП.
 *********
@@ -12,7 +12,7 @@
 Основной целью программы(***Модели***), является определение конечного положения автомобилей, после их столкновения
 *********
 ![GUI_Modeling_ex](https://1.downloader.disk.yandex.ru/preview/1045ae80d56a9f9bd9cf463c736f5bc3bcb28205622cc25a0a15ed0234e66876/inf/e4yAmOpUdHfB_SQ08sGywc2CX730zv9CQXkRoEITuVEArzK1wcC9_jHBXemtSpedCCtJY9au3z_E3VcYBkHDEw%3D%3D?uid=0&filename=2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1165x786)
-<img src="http://gifok.net/images/2017/08/27/testCrash.gif" width="1165" height="400" align="center"/>
+<img src="https://s61h.storage.yandex.net/rdisk/561024c6e8986c7fb0bb89494bd3017d029e60117f27f591f241b6113adfe9c1/59a33c9a/e4yAmOpUdHfB_SQ08sGywXw9MGz52L5W1fUTXNk7tL4uXwXCCpovvzP4aqdVfawyG8NLoD_M6O_ble7u0IqAiA==?uid=227757636&filename=testCrash.gif&disposition=inline&hash=&limit=0&content_type=image%2Fgif&fsize=4200013&hid=d3f9038fcd59546809e8438118c3959b&media_type=image&tknv=v2&etag=434588a9932383579abd10c258d34f8d&rtoken=AT79qphy4tJz&force_default=yes&ycrid=na-b465473c61665c6f4a224146279d7482-downloader16e&ts=557c30b74da80&s=8d483859c20fb2c22b88ac3cc3bf20c751224a4b60890e6124eff0498e3e1122&pb=U2FsdGVkX19zhonQCpr_zYYzeqiAshQVkIrstqYN3XaeZQt7ozXoFAqGMhkvOnBWe6_RcoWn6YrL7Jxhcnt-PRey34EBt3iaQBRmAyRqqOs=" width="1165" height="400" align="center"/>
 
 *********
 Программа позволяет:
