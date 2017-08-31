@@ -15,7 +15,7 @@
 <img src="https://s61h.storage.yandex.net/rdisk/561024c6e8986c7fb0bb89494bd3017d029e60117f27f591f241b6113adfe9c1/59a33c9a/e4yAmOpUdHfB_SQ08sGywXw9MGz52L5W1fUTXNk7tL4uXwXCCpovvzP4aqdVfawyG8NLoD_M6O_ble7u0IqAiA==?uid=227757636&filename=testCrash.gif&disposition=inline&hash=&limit=0&content_type=image%2Fgif&fsize=4200013&hid=d3f9038fcd59546809e8438118c3959b&media_type=image&tknv=v2&etag=434588a9932383579abd10c258d34f8d&rtoken=AT79qphy4tJz&force_default=yes&ycrid=na-b465473c61665c6f4a224146279d7482-downloader16e&ts=557c30b74da80&s=8d483859c20fb2c22b88ac3cc3bf20c751224a4b60890e6124eff0498e3e1122&pb=U2FsdGVkX19zhonQCpr_zYYzeqiAshQVkIrstqYN3XaeZQt7ozXoFAqGMhkvOnBWe6_RcoWn6YrL7Jxhcnt-PRey34EBt3iaQBRmAyRqqOs=" width="1165" height="400" align="center"/>
 
 *********
-Программа позволяет:
+Программа позволяет: 
 ********
 + Задавать количество автомобилей.
 + Задавать коэффициент трения поверхности "карты".
