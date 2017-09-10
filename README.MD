@@ -1,4 +1,4 @@
-# **Моделирование ДТП**
+# **Моделирование ДТП** 
 ************
 ![Modeling_ex](https://3.downloader.disk.yandex.ru/preview/53c7124a9d241a7517f7ffc717f8affc623f2913e0455b09a8c40a373baaa67a/inf/e4yAmOpUdHfB_SQ08sGywY6RWpBdZTZ538chB57HiojmzNZ1ROP0K3sr0xEAeVKnbrwmFRqKUy-2uwGVyXgDlQ%3D%3D?uid=0&filename=1.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1165x786)
 <img src="https://s57e.storage.yandex.net/rdisk/445685aa1bf9ebf181d109f7f0924a1e453643e87099476f429b174a03449c2b/59b54431/e4yAmOpUdHfB_SQ08sGywfY4bBIBtpJIL-4NOvkN7ThG3g5CevMQqhmV6GOWzH4qoaoxdTOMDl2nUWlj9J_DXw==?uid=227757636&filename=3.gif&disposition=inline&hash=&limit=0&content_type=image%2Fgif&fsize=3305161&hid=5c988b672102110b8b9fd5c9f9185837&media_type=image&tknv=v2&etag=55552f167e163ea9a0d5ccd8da1b9650&rtoken=jRDdM4aeJcN6&force_default=yes&ycrid=na-7a97cb280f56791675a7531b2b0fd409-downloader2e&ts=558d627c4ae40&s=4e44bb57268dd287e9fd68dd4a50d23c5aaafdbf61f67311d2188061afbd1b37&pb=U2FsdGVkX1907oA87uNEagh9hAiHD_7Ul6ADBWEc24OWBnxWhOjv5jps694sri7RIze8AJGVAJ3RA40Fp9UsWwYVx-trY58Vmbd9FAoLsAc=" width="510" height="394"/>
