@@ -12,7 +12,7 @@
 Основной целью программы(***Модели***), является определение конечного положения автомобилей, после их столкновения
 *********
 ![GUI_Modeling_ex](https://1.downloader.disk.yandex.ru/preview/1045ae80d56a9f9bd9cf463c736f5bc3bcb28205622cc25a0a15ed0234e66876/inf/e4yAmOpUdHfB_SQ08sGywc2CX730zv9CQXkRoEITuVEArzK1wcC9_jHBXemtSpedCCtJY9au3z_E3VcYBkHDEw%3D%3D?uid=0&filename=2.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&tknv=v2&size=1165x786)
-<a target="_blank" href="http://radikal.ru/big/twmhw7l2kjeyr"><img src="http://s013.radikal.ru/i325/1709/fc/08d6f59ab8e3.gif" ></a>
+<a target="_blank" href="http://radikal.ru/fp/twmhw7l2kjeyr"><img src="http://s013.radikal.ru/i325/1709/fc/08d6f59ab8e3t.jpg" ></a>
 
 *********
 Программа позволяет: 
